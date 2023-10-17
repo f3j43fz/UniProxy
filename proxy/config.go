@@ -171,7 +171,7 @@ func GetSingBoxConfig(uuid string, server *v2b.ServerInfo) (option.Options, erro
 	case "hysteria":
 		out = option.Outbound{
 			Tag:  "p",
-			Type: "hysteria",
+			Type: "hysteria2",
 			HysteriaOptions: option.HysteriaOutboundOptions{
 				ServerOptions: option.ServerOptions{
 					Server:     server.Host,
