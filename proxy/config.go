@@ -172,18 +172,21 @@ func GetSingBoxConfig(uuid string, server *v2b.ServerInfo) (option.Options, erro
 		out = option.Outbound{
 			Tag:  "p",
 			Type: "hysteria2",
-			HysteriaOptions: option.HysteriaOutboundOptions{
+			Hysteria2Options: option.Hysteria2OutboundOptions{
 				ServerOptions: option.ServerOptions{
 					Server:     server.Host,
 					ServerPort: uint16(server.Port),
 				},
-				UpMbps:     server.UpMbps,
-				DownMbps:   server.DownMbps,
-				Obfs:       server.ServerKey,
-				AuthString: uuid,
+				UpMbps:   server.UpMbps,
+				DownMbps: server.DownMbps,
+				Obfs: &option.Hysteria2Obfs{
+					Type:     "salamander",
+					Password: server.ServerKey,
+				},
+				Password: uuid,
 			},
 		}
-		out.HysteriaOptions.TLS = &option.OutboundTLSOptions{
+		out.Hysteria2Options.TLS = &option.OutboundTLSOptions{
 			Enabled:    true,
 			Insecure:   server.AllowInsecure != 0,
 			ServerName: server.ServerName,
